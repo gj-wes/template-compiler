@@ -17,6 +17,15 @@ npm install
 ```
 
 ## Usage
+Dev server with live updates for the `index.html`.
+```bash
+npm run dev
+```
+
+Will output the compiled version of the `index.html` to the `output` directory.
+```bash
+npm run build
+```
 
 ### Using Components
 Components are HTML files that can be reused throughout the template build.

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template compile</title>
+  </head>
+  <body>
+    <div style="max-width:600px; background-color:gainsboro; margin:0 auto; text-align: center;">
+      <component 
+        src="components/header.html" 
+        props='{"title": "Welcome to our newsletter"}' 
+        class="main-header blue-theme"
+      >
+        <slot name="subtitle">
+          <h3>Stay updated with our latest news!</h3>
+        </slot>
+      </component>
+    
+      <main>
+        <component src="components/heading.html" class="heading-xl" props='{"text": "Lorem Ipsum!"}'  />
+        <p>This is the main content of the email.</p>
+      </main>
+    
+      <component 
+        props='{"year": "2024"}' 
+        class="text-blue"
+        src="components/footer.html" 
+      />
+    </div>
+  </body>
+</html>

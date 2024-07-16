@@ -20,7 +20,7 @@ export default function templateCompiler() {
     transformIndexHtml(html) {
       const componentCache = new Map();
 
-      function processComponent(match) {
+      function processComponent(match, offset, fullHtml) {
 
         // Extract attributes regardless of order
         const srcMatch = match.match(/src=["'](.+?)["']/);
@@ -70,10 +70,20 @@ export default function templateCompiler() {
             });
           } else {
             content = content.replace(/>/, match => {
-              return ` class="${cssClass}" ${match}`;
+              return ` class="${cssClass}"${match}`;
             });
           }
         }
+
+        // Preserve indentation
+        const lines = fullHtml.substr(0, offset).split('\n');
+        const lastLine = lines[lines.length - 1];
+        const indentation = lastLine.match(/^\s*/)[0];
+        
+        // Apply indentation to each line of the content
+        content = content.split('\n').map((line, index) => {
+          return index === 0 ? line : indentation + line;
+        }).join('\n');
 
         return content;
       }

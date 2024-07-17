@@ -7,25 +7,23 @@
   </head>
   <body>
     <div style="max-width:600px; background-color:gainsboro; margin:0 auto; text-align: center;">
-      <component 
-        src="components/header.html" 
+      <em-header 
         props='{"title": "Welcome to our newsletter"}' 
         class="main-header blue-theme"
       >
         <slot name="subtitle">
           <h3>Stay updated with our latest news!</h3>
         </slot>
-      </component>
+      </em-header>
     
       <main>
-        <component src="components/heading.html" class="heading-xl" props='{"text": "Lorem Ipsum!"}'  />
+        <em-heading class="heading-xl" props='{"text": "Lorem Ipsum!"}'  />
         <p>This is the main content of the email.</p>
       </main>
     
-      <component 
+      <em-footer 
         props='{"year": "2024"}' 
         class="text-blue"
-        src="components/footer.html" 
       />
     </div>
   </body>

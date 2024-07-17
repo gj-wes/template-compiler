@@ -20,17 +20,14 @@ export default function templateCompiler() {
     transformIndexHtml(html) {
       const componentCache = new Map();
 
-      function processComponent(match, offset, fullHtml) {
+      function processComponent(match, name, offset, fullHtml) {
 
-        // Extract attributes regardless of order
-        const srcMatch = match.match(/src=["'](.+?)["']/);
         const propsMatch = match.match(/props=['](.+?)[']/);
         const classMatch = match.match(/class=["'](.+?)["']/);
-        const slotContent = match.match(/>([^]*?)<\/component>/);
-        
-        if (!srcMatch) return match; // If no src, return original match
+        const slotEndRegex = new RegExp(`>([^]*?)<\/em-${name}>`);
+        const slotContent = match.match(slotEndRegex);
 
-        const src = srcMatch[1];
+        const src = 'components/' + name + '.html';
         const props = propsMatch ? propsMatch[1] : '{}';
         const cssClass = classMatch ? classMatch[1] : '';
         const slots = slotContent ? slotContent[1] : '';
@@ -90,7 +87,7 @@ export default function templateCompiler() {
 
       // Process all components recursively
       let processedHtml = html;
-      const componentRegex = /<component\s+(?:[^>]+?\s+)*?(?:src|props|class)=["'][^>]*?>(?:[^]*?<\/component>)?/g;
+      const componentRegex = /<em-([a-zA-Z0-9\-]+)\s+(?:[^>]+?\s+)*?(?:src|props|class)=["'][^>]*?>(?:[^]*?<\/em-\1>)?/g;
 
       while (componentRegex.test(processedHtml)) {
         processedHtml = processedHtml.replace(componentRegex, processComponent);
